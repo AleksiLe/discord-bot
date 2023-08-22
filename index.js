@@ -2,10 +2,13 @@ const fs = require('node:fs')
 const path = require('node:path')
 const { Client, Collection,Events, GatewayIntentBits } = require('discord.js')
 const { clientId, guildId, token } = require('./config.json');
+const { Player } = require('discord-player')
+
 
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildVoiceStates,
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.MessageContent,
     ],
@@ -42,7 +45,7 @@ client.on(Events.InteractionCreate, async interaction => {
     }
 
     try {
-        await command.execute(interaction)
+        await command.execute(interaction, client)
     } catch(error) {
         console.error(error)
         if (interaction.replied || interaction.deferred) {
@@ -58,6 +61,12 @@ client.once(Events.ClientReady, () => {
 	console.log('Ready!');
 });
 
+client.player = new Player(client, {
+    ytdlOptions: {
+        quality: "highestaudio",
+        highWaterMark: 1 << 25
+    }
+})
 
-
+client.player.extractors.loadDefault()
 client.login(token)
