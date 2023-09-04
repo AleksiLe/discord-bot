@@ -60,13 +60,13 @@ function MakeEmbed(result) {
     return embed;
 }
 function forecast(embed, result, day) {
-
+    const name = result[0].location.name;
     const forecast = result[0].forecast[day].skytextday;
     const tempHigh = result[0].forecast[day].high;
     const tempLow = result[0].forecast[day].low;
     embed
         .setColor('Blue')
-        .setTitle('Tomorrow\'s forecast')
+        .setTitle(`Current weather of ${name} and Tomorrow\'s forecast`)
         .addFields({ name: 'Tomorrow\'s weather', value: `${forecast}` })
         .addFields({ name: 'Tomorrow\'s high', value: `${tempHigh} °C` })
         .addFields({ name: 'Tomorrow\'s low', value: `${tempLow} °C` });
