@@ -9,7 +9,6 @@ module.exports = {
         .setName('quit')
         .setDescription('Disconnect bot from channel!'
         ),
-        //add subcommands for playlist and search
     async execute(interaction, client) {
             const queue = useQueue(interaction.guild.id)
             queue.delete()

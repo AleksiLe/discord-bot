@@ -60,7 +60,7 @@ client.on(Events.InteractionCreate, async interaction => {
 client.once(Events.ClientReady, () => {
 	console.log('Ready!');
 });
-
+ 
 client.player = new Player(client, {
     ytdlOptions: {
         quality: "highestaudio",

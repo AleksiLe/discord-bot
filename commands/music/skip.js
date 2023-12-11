@@ -9,7 +9,6 @@ module.exports = {
         .setName('skip')
         .setDescription('Skips the current song!'
         ),
-        //add subcommands for playlist and search
     async execute(interaction, client) {
             const queue = useQueue(interaction.guild.id)
             queue.node.skip()
