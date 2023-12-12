@@ -1,7 +1,7 @@
 const fs = require('node:fs')
 const path = require('node:path')
 const { Client, Collection,Events, GatewayIntentBits } = require('discord.js')
-const { clientId, guildId, token } = require('./config.json');
+const { clientId, guildId, botToken } = require('./config.js');
 const { Player } = require('discord-player')
 
 
@@ -69,4 +69,4 @@ client.player = new Player(client, {
 })
 
 client.player.extractors.loadDefault()
-client.login(token)
+client.login(botToken)
