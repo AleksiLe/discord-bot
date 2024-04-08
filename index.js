@@ -7,6 +7,7 @@ const { Player } = require("discord-player");
 const db = require("./database/db.js");
 const SlashLogger = require("./database/models/Slashlogger.js");
 
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
