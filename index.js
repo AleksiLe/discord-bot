@@ -7,7 +7,6 @@ const { Player } = require("discord-player");
 const db = require("./database/db.js");
 const SlashLogger = require("./database/models/Slashlogger.js");
 
-
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -53,7 +52,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
   try {
     await command.execute(interaction, client);
-    const commandUrl = interaction.options.getString("url")
+    /* const commandUrl = interaction.options.getString("url")
       ? interaction.options.getString("url")
       : null;
     SlashLogger.create({
@@ -63,7 +62,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
       userId: interaction.user.id,
       username: interaction.user.username,
       timestamp: Date.now(),
-    });
+    }); */ //Commented out because container cant reach mongodb now.
   } catch (error) {
     console.error(error);
     if (interaction.replied || interaction.deferred) {
