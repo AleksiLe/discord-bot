@@ -4,13 +4,13 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm ci
+RUN apk update && apk add python3 build-base
 
-RUN apk update
-RUN apk add
-RUN apk add ffmpeg
+RUN npm install
+
+RUN apk update && apk add ffmpeg
 
 COPY . .
 
-RUN node deploy-commands.js
-RUN node index.js
+CMD ["node", "deploy-commands.js"]
+CMD ["node", "index.js"]

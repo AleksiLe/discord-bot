@@ -4,8 +4,8 @@ const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
 const { clientId, guildId, botToken } = require("./config.js");
 const { Player } = require("discord-player");
 
-const db = require("./database/db.js");
-const SlashLogger = require("./database/models/Slashlogger.js");
+/* const db = require("./database/db.js");
+const SlashLogger = require("./database/models/Slashlogger.js"); */
 
 const client = new Client({
   intents: [
@@ -65,17 +65,10 @@ client.on(Events.InteractionCreate, async (interaction) => {
     }); */ //Commented out because container cant reach mongodb now.
   } catch (error) {
     console.error(error);
-    if (interaction.replied || interaction.deferred) {
-      await interaction.followUp({
-        content: "There was an error while executing this command!",
-        ephemeral: true,
-      });
-    } else {
-      await interaction.reply({
-        content: "There was an error while executing this command!",
-        ephemeral: true,
-      });
-    }
+    await interaction.followUp({
+      content: "There was an error while executing this command!",
+      ephemeral: true,
+    });
   }
 });
 

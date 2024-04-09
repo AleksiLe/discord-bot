@@ -39,8 +39,12 @@ module.exports = {
         )
     ),
   async execute(interaction, client) {
+    // Bot will wait for logic to process and only allows one editReply
+    // This is to prevent the bot from sending multiple messages and to allow
+    // the bot to edit the original message once.
+    await interaction.deferReply({ ephemeral: true });
     if (!interaction.member.voice.channel) {
-      return await interaction.reply({
+      return await interaction.editReply({
         content: "You need to enter a voice channel before use the command",
         ephemeral: true,
       });
@@ -50,7 +54,6 @@ module.exports = {
 
     if (!queue.connection)
       await queue.connect(interaction.member.voice.channel);
-
     let embed = new EmbedBuilder();
     //song
     if (interaction.options.getSubcommand() === "song") {
@@ -59,7 +62,8 @@ module.exports = {
         requestedBy: interaction.user,
         searchEngine: QueryType.YOUTUBE_VIDEO,
       });
-      if (result.tracks.length === 0) return interaction.reply("No results");
+      if (result.tracks.length === 0)
+        return interaction.editReply("No results");
 
       const song = result.tracks[0];
       await queue.addTrack(song);
@@ -78,7 +82,8 @@ module.exports = {
         requestedBy: interaction.user,
         searchEngine: QueryType.YOUTUBE_PLAYLIST,
       });
-      if (result.tracks.length === 0) return interaction.reply("No results");
+      if (result.tracks.length === 0)
+        return interaction.editReply("No results");
 
       const playlist = result.playlist;
       await queue.addTrack(result.tracks);
@@ -96,7 +101,8 @@ module.exports = {
         requestedBy: interaction.user,
         searchEngine: QueryType.AUTO,
       });
-      if (result.tracks.length === 0) return interaction.reply("No results");
+      if (result.tracks.length === 0)
+        return interaction.editReply("No results");
 
       const song = result.tracks[0];
       await queue.addTrack(song);
@@ -110,8 +116,9 @@ module.exports = {
     }
 
     if (!queue.isPlaying()) await queue.node.play();
-    await interaction.reply({
+    await interaction.editReply({
       embeds: [embed],
+      ephemeral: false,
     });
   },
 };
