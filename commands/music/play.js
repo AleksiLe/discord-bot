@@ -42,11 +42,11 @@ module.exports = {
     // Bot will wait for logic to process and only allows one editReply
     // This is to prevent the bot from sending multiple messages and to allow
     // the bot to edit the original message once.
-    await interaction.deferReply({ ephemeral: true });
+    await interaction.deferReply({ ephemeral: false });
     if (!interaction.member.voice.channel) {
       return await interaction.editReply({
         content: "You need to enter a voice channel before use the command",
-        ephemeral: true,
+        ephemeral: false
       });
     }
 
